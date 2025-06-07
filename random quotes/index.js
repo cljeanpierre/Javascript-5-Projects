@@ -20,8 +20,20 @@ const usedIndexes = new Set()
 const quoteElement = document.getElementById("quote")
 
 function generateQuote() {
-    const randomIdx = Math.floor(Math.random() * quotes.length)
-    // sets text of paragraph element from HTML --> quoteElement.innerHTML = ''
-    const quote = quotes[randomIdx]
-    quoteElement.innerHTML = quote;
+    if (usedIndexes.size >= quotes.length) {
+        usedIndexes.clear()
+    }
+    // use a while loop to ensure that new quotes are always being generated
+    while (true)  {
+            const randomIdx = Math.floor(Math.random() * quotes.length)
+            
+            if (usedIndexes.has(randomIdx)) continue
+            
+            // sets text of paragraph element from HTML --> quoteElement.innerHTML = ''
+            const quote = quotes[randomIdx]
+            quoteElement.innerHTML = quote;
+            usedIndexes.add(randomIdx)
+            break
+    }
+
 }
